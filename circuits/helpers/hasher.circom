@@ -1,6 +1,6 @@
 pragma circom 2.1.3;
 
-include "../../node_modules/circomlib/circuits/poseidon.circom";
+include "../circomlib_circuits/poseidon.circom";
 
 include "misc.circom";
 

@@ -1,8 +1,8 @@
 pragma circom 2.1.3;
 
-include "../../node_modules/circomlib/circuits/aliascheck.circom";
-include "../../node_modules/circomlib/circuits/comparators.circom";
-include "../../node_modules/circomlib/circuits/gates.circom";
+include "../circomlib_circuits/aliascheck.circom";
+include "../circomlib_circuits/comparators.circom";
+include "../circomlib_circuits/gates.circom";
 
 include "hasher.circom";
 include "misc.circom";

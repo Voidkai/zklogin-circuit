@@ -1,6 +1,6 @@
 pragma circom 2.1.3;
 
-include "../../../node_modules/circomlib/circuits/bitify.circom";
+include "../../circomlib_circuits/bitify.circom";
 
 include "./bigint.circom";
 include "./bigint_func.circom";
