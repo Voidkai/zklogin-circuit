@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PHASE1=../parameters/pot22_final.ptau # download from https://github.com/iden3/snarkjs#7-prepare-phase-2
-BUILD_DIR=../build/zkLogin
+BUILD_DIR=../build
 CIRCUIT_DIR=../circuits
 CIRCUIT_NAME=zkLogin
 
@@ -12,16 +12,16 @@ else
     exit 1
 fi
 
-if [ ! -d "$BUILD_DIR" ]; then
+if [ ! -d "$BUILD_DIR"/"$CIRCUIT_NAME" ]; then
     echo "No build directory found. Creating build directory..."
     mkdir -p "$BUILD_DIR"
 fi
 
-# echo "****COMPILING CIRCUIT****"
-# start=`date +%s`
-# circom "$CIRCUIT_DIR"/"$CIRCUIT_NAME".circom --r1cs --wasm --sym --c --wat --output "$BUILD_DIR"
-# end=`date +%s`
-# echo "DONE ($((end-start))s)"
+echo "****COMPILING CIRCUIT****"
+start=`date +%s`
+circom "$CIRCUIT_DIR"/"$CIRCUIT_NAME".circom --r1cs --wasm --sym --c --wat --output "$BUILD_DIR"/"$CIRCUIT_NAME"
+end=`date +%s`
+echo "DONE ($((end-start))s)"
 
 echo "****PRINT CIRCUIT INPUT****"
 python3 -m json.tool "$BUILD_DIR"/input_"$CIRCUIT_NAME".json
@@ -69,8 +69,8 @@ npx snarkjs groth16 prove "$BUILD_DIR"/"$CIRCUIT_NAME".zkey "$BUILD_DIR"/witness
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 
-# echo "****VERIFYING PROOF FOR SAMPLE INPUT****"
-# start=`date +%s`
-# npx snarkjs groth16 verify "$BUILD_DIR"/vkey.json "$BUILD_DIR"/public.json "$BUILD_DIR"/proof.json
-# end=`date +%s`
-# echo "DONE ($((end-start))s)"
+echo "****VERIFYING PROOF FOR SAMPLE INPUT****"
+start=`date +%s`
+npx snarkjs groth16 verify "$BUILD_DIR"/vkey.json "$BUILD_DIR"/public.json "$BUILD_DIR"/proof.json
+end=`date +%s`
+echo "DONE ($((end-start))s)"
